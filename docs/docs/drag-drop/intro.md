@@ -76,10 +76,18 @@ store.register({ id: String, ref: HTMLElement, depth: Number });
 Use `onmousedown` to trigger responsive dragging
 
 ```ts
-const { target, clientX, clientY } = event;
-
-dnd = new DnD(target.id, { x: clientX, y: clientY });
+dnd = new DnD(id: String, {x: Number, y: Number}, options?: Object);
 ```
+
+From your click event:
+
+```js
+const { target, clientX, clientY } = event;
+```
+
+- `id: String` is element id.
+- `{x: clientX, y: clientY`}
+- See Options below
 
 ### End dragging
 
@@ -87,6 +95,30 @@ Use `onmouseup` to end dragging
 
 ```ts
 dnd.endDragging();
+```
+
+## Options
+
+### thresholds
+
+`Description`: You can define when dragging effects happen by passing threshold object to
+
+`Type`: An object with the shape of
+
+```ts
+interface Thresholds {
+  vertical: number;
+  horizontal: number;
+}
+```
+
+`Default`:
+
+```js
+thresholds= {
+  vertical: 60;
+  horizontal: 60;
+}
 ```
 
 ## Advanced
