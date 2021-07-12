@@ -1,0 +1,39 @@
+{
+  "name": "@dflex/utils",
+  "version": "2.7.2",
+  "description": "DFlex utilities package",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Jalal Maskoun <jimmy002020@gmail.com>",
+  "scripts": {
+    "compile": "yarn rimraf ./dist tsconfig.tsbuildinfo && yarn tsc -b",
+    "build": "yarn compile"
+  },
+  "homepage": "https://github.com/dflex-js/dflex/tree/master/packages/utils",
+  "repository": "https://github.com/dflex-js/dflex",
+  "license": "AGPL-3.0",
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "keywords": [
+    "drag-drop",
+    "dnd",
+    "sortable",
+    "reorder",
+    "drag",
+    "drop",
+    "DOM",
+    "front-end",
+    "@dflex",
+    "@dflex/dom-gen",
+    "@dflex/store",
+    "@dflex/core-instance",
+    "@dflex/draggable",
+    "@dflex/dnd"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

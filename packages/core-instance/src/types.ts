@@ -70,6 +70,10 @@ export interface CoreInstanceInterface extends AbstractCoreInterface {
   prevTranslateY: TransitionHistory;
   currentTop: number;
   currentLeft: number;
+  scrollWidth?: number;
+  scrollHeight?: number;
+  clientWidth?: number;
+  clientHeight?: number;
   order: Order;
   keys: Keys;
   setYPosition(

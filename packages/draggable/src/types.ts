@@ -11,16 +11,16 @@ export interface TempTranslate {
   y: number;
 }
 
+type ValueOf<T> = T[keyof T];
+
 export type DraggedStyle = {
-  prop: string;
-  dragValue: string;
-  afterDragValue: string | null;
+  prop: keyof CSSStyleDeclaration;
+  dragValue: ValueOf<CSSStyleDeclaration>;
+  afterDragValue: ValueOf<CSSStyleDeclaration> | null;
 }[];
 
 export interface AbstractDraggableInterface<T extends AbstractCoreInterface> {
   draggedElm: T;
-
-  draggedStyleRef: CSSStyleDeclaration;
 
   /**
    * When dragging start, element shouldn't jump from its translate. So, we

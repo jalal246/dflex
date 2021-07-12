@@ -9,6 +9,7 @@ on:
 jobs:
   cypress-dnd:
     name: E2E Test For DnD React APP
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

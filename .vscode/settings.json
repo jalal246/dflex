@@ -4,5 +4,6 @@
   "eslint.packageManager": "yarn",
   "eslint.alwaysShowStatus": true,
   "eslint.debug": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": ["Scrollable"]
 }

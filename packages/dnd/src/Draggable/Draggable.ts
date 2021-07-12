@@ -16,8 +16,9 @@ import type {
   TempOffset,
   Threshold,
   TempTranslate,
-  DraggableOpts,
 } from "./types";
+
+import type { FinalDndOpts } from "../types";
 
 class Draggable extends Base implements DraggableDnDInterface {
   private innerOffsetX: number;
@@ -46,7 +47,7 @@ class Draggable extends Base implements DraggableDnDInterface {
     elmTree: ElmTree,
     siblingsBoundaries: BoundariesOffset,
     initCoordinates: MouseCoordinates,
-    opts: DraggableOpts
+    opts: FinalDndOpts
   ) {
     super(elmTree, siblingsBoundaries, initCoordinates, opts);
 

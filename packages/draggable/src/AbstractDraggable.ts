@@ -25,7 +25,7 @@ const draggedStyleProps: DraggedStyle = [
     afterDragValue: null,
   },
   {
-    prop: "user-select",
+    prop: "userSelect",
     dragValue: "none",
     afterDragValue: null,
   },
@@ -35,8 +35,6 @@ class AbstractDraggable<T extends AbstractCoreInterface>
   implements AbstractDraggableInterface<T>
 {
   draggedElm: T;
-
-  draggedStyleRef: CSSStyleDeclaration;
 
   /**
    * When dragging start, element shouldn't jump from its translate. So, we
@@ -70,13 +68,7 @@ class AbstractDraggable<T extends AbstractCoreInterface>
 
     this.draggedElm = abstractCoreElm;
 
-    const {
-      translateX,
-      translateY,
-      ref: { style: draggedStyle },
-    } = this.draggedElm;
-
-    this.draggedStyleRef = draggedStyle;
+    const { translateX, translateY } = this.draggedElm;
 
     this.outerOffsetX = -initX + translateX;
     this.outerOffsetY = -initY + translateY;
@@ -88,6 +80,7 @@ class AbstractDraggable<T extends AbstractCoreInterface>
 
     this.draggedStyle = draggedStyleProps;
 
+    this.setPosition(initX, initY);
     this.setDragged(true);
   }
 
@@ -101,8 +94,10 @@ class AbstractDraggable<T extends AbstractCoreInterface>
     if (isActive) {
       this.draggedStyle.forEach(({ prop, dragValue }) => {
         // @ts-expect-error
-        this.draggedStyleRef[prop] = dragValue;
+        this.draggedElm.ref.style[prop] = dragValue;
       });
+      // this.draggedElm.ref.style.top = `${49.59375}px`;
+
       return;
     }
     /**
@@ -110,8 +105,14 @@ class AbstractDraggable<T extends AbstractCoreInterface>
      */
     this.draggedStyle.forEach(({ prop, afterDragValue }) => {
       // @ts-ignore
-      this.draggedStyleRef[prop] = afterDragValue;
+      this.draggedElm.ref.style[prop] = afterDragValue;
     });
+  }
+
+  protected setPosition(x: number, y: number) {
+    // this.draggedElm.ref.style.top = `${49.59375}px`;
+    // this.draggedElm.ref.style.left = `${1229}px`;
+    this;
   }
 
   /**
@@ -133,7 +134,7 @@ class AbstractDraggable<T extends AbstractCoreInterface>
     this.tempTranslate.x = x + this.outerOffsetX;
     this.tempTranslate.y = y + this.outerOffsetY;
 
-    this.draggedStyleRef.transform = `translate(${this.tempTranslate.x}px,${this.tempTranslate.y}px)`;
+    this.draggedElm.ref.style.transform = `translate(${this.tempTranslate.x}px,${this.tempTranslate.y}px)`;
   }
 }
 

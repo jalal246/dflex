@@ -19,8 +19,10 @@ import type {
   DraggableBaseInterface,
   ThresholdPercentages,
   LayoutThresholds,
-  DraggableOpts,
 } from "./types";
+
+import AutoScroll from "../Scroll";
+import type { FinalDndOpts } from "../types";
 
 /**
  * Base element.
@@ -35,27 +37,29 @@ class Base
 
   operationID: string;
 
-  opts: DraggableOpts;
+  protected opts: FinalDndOpts;
 
-  parentsList: ELmBranch;
+  protected parentsList: ELmBranch;
 
   siblingsList: string[] | null;
 
-  activeParent!: CoreInstanceInterface | null;
+  private activeParent!: CoreInstanceInterface | null;
 
-  isOutActiveParent!: boolean;
+  private isOutActiveParent!: boolean;
 
-  setOfTransformedIds!: Set<string>;
+  private setOfTransformedIds!: Set<string>;
 
-  thresholds: LayoutThresholds;
+  protected thresholds: LayoutThresholds;
 
-  thresholdsPercentages: ThresholdPercentages;
+  private thresholdsPercentages: ThresholdPercentages;
+
+  scroll?: AutoScroll;
 
   constructor(
     elmTree: ElmTree,
     siblingsBoundaries: BoundariesOffset,
     initCoordinates: MouseCoordinates,
-    opts: DraggableOpts
+    opts: FinalDndOpts
   ) {
     const {
       element,
@@ -138,6 +142,16 @@ class Base
       this.assignActiveParent(parent);
 
       this.isOutActiveParent = false;
+
+      const { enable, ...rest } = this.opts.scroll;
+
+      if (enable) {
+        const { parent: gParent } = store.getElmTreeById(parent.id);
+
+        if (gParent) {
+          this.scroll = new AutoScroll(gParent, rest);
+        }
+      }
     } else {
       /**
        * Dragged has no parent.

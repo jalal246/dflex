@@ -72,6 +72,7 @@ jobs:
   unit-test:
     name: Unit Test
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft != true
     steps:
       - name: Check out repository
         uses: actions/checkout@master
