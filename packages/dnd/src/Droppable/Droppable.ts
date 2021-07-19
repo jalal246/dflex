@@ -316,7 +316,8 @@ class Droppable {
   }
 
   private switchElement() {
-    const elmIndex = this.draggable.tempIndex + -1 * this.effectedElemDirection;
+    const elmIndex =
+      this.draggable.tempIndex! + -1 * this.effectedElemDirection;
     const id = this.draggable.siblingsList![elmIndex];
 
     if (this.isIDEligible2Move(id)) {
@@ -327,10 +328,10 @@ class Droppable {
   }
 
   private liftUp() {
-    const from = this.draggable.tempIndex + 1;
+    const from = this.draggable.tempIndex! + 1;
 
-    this.leftAtIndex = this.draggable.tempIndex;
-    this.draggable.tempIndex = -1;
+    this.leftAtIndex = this.draggable.tempIndex!;
+    this.draggable.tempIndex = null;
 
     for (let i = from; i < this.draggable.siblingsList!.length; i += 1) {
       /**

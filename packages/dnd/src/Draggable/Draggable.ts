@@ -95,16 +95,12 @@ class Draggable extends Base implements DraggableDnDInterface {
         !$.allowLeavingFromBottom);
   }
 
-  private getLastElmIndex() {
-    return this.siblingsList!.length - 1;
-  }
-
   private isFirstOrOutside() {
-    return this.siblingsList !== null && this.tempIndex <= 0;
+    return this.siblingsList !== null && this.tempIndex === null;
   }
 
   private isLastELm() {
-    return this.tempIndex === this.getLastElmIndex();
+    return this.tempIndex === this.siblingsList!.length - 1;
   }
 
   private axesRightFilter(x: number, minRight: number) {
@@ -133,14 +129,14 @@ class Draggable extends Base implements DraggableDnDInterface {
   }
 
   private axesBottomFilter(y: number, bottom: number) {
-    return (this.tempIndex < 0 || this.isLastELm()) &&
+    return (this.tempIndex === null || this.isLastELm()) &&
       y - this.innerOffsetY + this.draggedElm.offset.height >= bottom
       ? bottom + this.innerOffsetY - this.draggedElm.offset.height
       : y;
   }
 
   private axesTopFilter(y: number, maxTop: number) {
-    return this.tempIndex <= 0 && y - this.innerOffsetY <= maxTop
+    return this.tempIndex === null && y - this.innerOffsetY <= maxTop
       ? maxTop + this.innerOffsetY
       : y;
   }
@@ -211,7 +207,7 @@ class Draggable extends Base implements DraggableDnDInterface {
      */
     return (
       (this.isLastELm() && this.tempOffset.currentTop > $.maxBottom) ||
-      (this.tempIndex < 0 && this.tempOffset.currentTop < $.maxTop)
+      (this.tempIndex == null && this.tempOffset.currentTop < $.maxTop)
     );
   }
 
@@ -361,11 +357,13 @@ class Draggable extends Base implements DraggableDnDInterface {
 
     this.draggedElm.transformElm();
 
-    if (this.siblingsList) {
-      this.draggedElm.assignNewPosition(this.siblingsList, this.tempIndex);
-    }
+    if (this.tempIndex !== null) {
+      if (this.siblingsList) {
+        this.draggedElm.assignNewPosition(this.siblingsList, this.tempIndex);
+      }
 
-    this.draggedElm.order.self = this.tempIndex;
+      this.draggedElm.order.self = this.tempIndex;
+    }
   }
 
   endDragging(isFallback: boolean) {

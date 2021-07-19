@@ -46,7 +46,7 @@ export interface Restrictions {
 
 export interface DraggableBaseInterface
   extends AbstractDraggableInterface<CoreInstanceInterface> {
-  tempIndex: number;
+  tempIndex: number | null;
   operationID: string;
 
   opts: FinalDndOpts;

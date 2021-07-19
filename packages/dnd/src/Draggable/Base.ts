@@ -31,7 +31,7 @@ class Base
   extends AbstractDraggable<CoreInstanceInterface>
   implements DraggableBaseInterface
 {
-  tempIndex: number;
+  tempIndex: number | null;
 
   operationID: string;
 
